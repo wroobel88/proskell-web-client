@@ -1,5 +1,12 @@
 # my-project
 
+## Docker
+
+```
+docker build -t proskell-web-client .
+docker run -it -p 8080:8080 --rm proskell-web-client
+```
+
 ## Project setup
 ```
 yarn install
