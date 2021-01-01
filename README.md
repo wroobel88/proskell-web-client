@@ -4,7 +4,7 @@
 
 ```
 docker build -t proskell-web-client .
-docker run -it -p 8080:8080 --rm proskell-web-client
+docker run -it -p 8080:80 --rm proskell-web-client
 ```
 
 ## Project setup

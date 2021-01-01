@@ -1,16 +1,15 @@
-FROM node:14-alpine
-
-RUN yarn global add http-server && yarn cache clean
+FROM node:14-alpine AS builder
 
 WORKDIR /app
-
-COPY babel.config.js package.json vue.config.js yarn.lock ./
-
-RUN yarn i && yarn cache clean
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile && yarn cache clean
 
 COPY . .
-
 RUN yarn build
 
-EXPOSE 8080
-CMD [ "http-server", "dist" ]
+FROM nginx:1.18-alpine
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
+COPY --from=builder /app/dist /usr/share/nginx/html
