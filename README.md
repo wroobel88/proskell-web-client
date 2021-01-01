@@ -1,13 +1,13 @@
-# my-project
+# proskell-web-client
 
 ## Project setup
 ```
-yarn install
+yarn i
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+yarn start
 ```
 
 ### Compiles and minifies for production
@@ -15,14 +15,14 @@ yarn serve
 yarn build
 ```
 
-### Run your end-to-end tests
-```
-yarn test:e2e
-```
-
 ### Lints and fixes files
 ```
 yarn lint
+```
+
+### Run your end-to-end tests
+```
+yarn e2e
 ```
 
 ### Customize configuration
