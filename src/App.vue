@@ -17,6 +17,7 @@
 <script>
 import ExerciseForm from "./components/ExerciseForm.vue";
 
+import axios from "axios";
 export default {
   name: "App",
   components: {
@@ -25,6 +26,18 @@ export default {
   methods: {
     onSubmit(formValue) {
       console.log(formValue);
+      console.log({
+        studentNo: this.studentNo,
+        exerciseNo: this.exerciseNo,
+        languageName: this.languageName,
+        code: this.code,
+      });
+      axios.post(`http://127.0.0.1:5000/${this.languageName}`, {
+        userid: this.studentNo,
+        exerciseNo: this.exerciseNo,
+        language: this.languageName,
+        code: this.code,
+      });
     },
   },
 };
