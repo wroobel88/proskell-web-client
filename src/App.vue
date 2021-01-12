@@ -25,18 +25,11 @@ export default {
   },
   methods: {
     onSubmit(formValue) {
-      console.log(formValue);
-      console.log({
-        studentNo: this.studentNo,
-        exerciseNo: this.exerciseNo,
-        languageName: this.languageName,
-        code: this.code,
-      });
-      axios.post(`http://127.0.0.1:5000/${this.languageName}`, {
-        userid: this.studentNo,
-        exerciseNo: this.exerciseNo,
-        language: this.languageName,
-        code: this.code,
+      axios.post(`http://localhost:5000/${formValue.languageValue}`, {
+        userid: formValue.studentNo,
+        exerciseNo: formValue.exerciseNo,
+        language: formValue.languageValue,
+        code: formValue.code,
       });
     },
   },
