@@ -65,10 +65,10 @@ export default {
         ) {
           setTimeout(() => {
             this.loadingText = "Kompilacja";
-          }, 1000);
+          }, 2000);
           setTimeout(() => {
             this.loadingText = "Testowanie";
-          }, 2000);
+          }, 4000);
           setTimeout(() => {
             let results =
               exerciseNo === "__demo_compilation_error__" ||
@@ -110,7 +110,7 @@ export default {
                   exerciseNo === "__demo_unknown_error__"
                 ? "danger"
                 : "info";
-          }, 3000);
+          }, 10000);
         } else {
           // TODO: make a call to the API with axios and transform response / handle error
           console.log(formValue);
