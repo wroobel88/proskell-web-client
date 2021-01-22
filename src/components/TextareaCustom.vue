@@ -2,7 +2,7 @@
   <textarea
     :id="htmlId"
     class="textarea"
-    :class="{ 'is-danger': isDanger }"
+    :class="{ 'is-danger': isDanger, 'is-family-monospace': hasTextMonospace }"
     :placeholder="label"
     :value="value"
     @input="$emit('input', $event.target.value)"
@@ -27,6 +27,10 @@ export default {
       type: String,
       required: true,
       validator: (value) => value.trim() !== "",
+    },
+    hasTextMonospace: {
+      type: Boolean,
+      default: false,
     },
     isDanger: {
       type: Boolean,

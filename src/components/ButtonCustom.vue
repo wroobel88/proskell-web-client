@@ -1,7 +1,7 @@
 <template>
   <button
     class="button"
-    :class="{ 'is-success': isSuccess }"
+    :class="[`is-${variant}`]"
     :type="type"
     :disabled="isDisabled"
   >
@@ -18,9 +18,11 @@ export default {
       default: "button",
       validator: (value) => ["button", "submit", "reset"].includes(value),
     },
-    isSuccess: {
-      type: Boolean,
-      default: false,
+    variant: {
+      type: String,
+      default: "info",
+      validator: (value) =>
+        ["info", "success", "warning", "danger"].includes(value),
     },
     isDisabled: {
       type: Boolean,
