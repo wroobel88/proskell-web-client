@@ -25,12 +25,13 @@
       v-model="code"
       html-id="code"
       label="Kod"
+      has-text-monospace
       :is-valid="isCodeValid"
     ></TextareaField>
 
     <FieldCustom>
       <template v-slot:control>
-        <ButtonCustom type="submit" is-success :disabled="!isFormValid">
+        <ButtonCustom type="submit" variant="success" :disabled="!isFormValid">
           Wyślij
         </ButtonCustom>
       </template>
@@ -85,14 +86,36 @@ export default {
       );
     },
   },
+  created() {
+    const storedFormValue = this.openStorage();
+
+    if (storedFormValue) {
+      const { studentNo, exerciseNo, languageValue, code } = storedFormValue;
+
+      this.studentNo = studentNo;
+      this.exerciseNo = exerciseNo;
+      this.languageValue = languageValue;
+      this.code = code;
+    }
+  },
   methods: {
     onSubmit() {
-      this.$emit("submit", {
+      const form = {
         studentNo: this.studentNo,
         exerciseNo: this.exerciseNo,
         languageValue: this.languageValue,
         code: this.code,
-      });
+      };
+      this.saveStorage(form);
+      this.$emit("submit", form);
+    },
+    openStorage() {
+      // FIXME: make sure that localStorage is available
+      return JSON.parse(localStorage.getItem("formValue"));
+    },
+    saveStorage(form) {
+      // FIXME: make sure that localStorage is available
+      localStorage.setItem("formValue", JSON.stringify(form));
     },
   },
 };

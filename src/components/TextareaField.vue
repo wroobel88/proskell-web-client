@@ -12,6 +12,7 @@
         v-model="localValue"
         :html-id="htmlId"
         :label="label"
+        :has-text-monospace="hasTextMonospace"
         :is-danger="isDanger"
         @touch="isTouched = true"
       ></TextareaCustom>
@@ -45,6 +46,10 @@ export default {
       type: String,
       required: true,
       validator: (value) => value.trim() !== "",
+    },
+    hasTextMonospace: {
+      type: Boolean,
+      default: false,
     },
     isValid: {
       type: Boolean,
