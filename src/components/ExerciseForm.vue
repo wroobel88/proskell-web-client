@@ -109,13 +109,28 @@ export default {
       this.saveStorage(form);
       this.$emit("submit", form);
     },
-    openStorage() {
-      // FIXME: make sure that localStorage is available
-      return JSON.parse(localStorage.getItem("formValue"));
+    isLocalStorageAvailable() {
+      try {
+        const TEST = "testItem";
+        localStorage.setItem(TEST, TEST);
+        localStorage.removeItem(TEST);
+        return true;
+      } catch (_) {
+        return false;
+      }
     },
-    saveStorage(form) {
-      // FIXME: make sure that localStorage is available
-      localStorage.setItem("formValue", JSON.stringify(form));
+    openStorage() {
+      if (this.isLocalStorageAvailable()) {
+        const formValue = localStorage.getItem("formValue");
+        return formValue ? JSON.parse(formValue) : null;
+      }
+
+      return null;
+    },
+    saveStorage(formValue) {
+      if (this.isLocalStorageAvailable()) {
+        localStorage.setItem("formValue", JSON.stringify(formValue));
+      }
     },
   },
 };

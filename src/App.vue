@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import ExerciseForm from "./components/ExerciseForm.vue";
 import LoadingSpinner from "./components/LoadingSpinner";
 import TestResults from "./components/TestResults.vue";
@@ -52,7 +54,7 @@ export default {
   methods: {
     onSubmit(formValue) {
       if (formValue) {
-        const { exerciseNo } = formValue;
+        const { studentNo, exerciseNo, languageValue, code } = formValue;
 
         this.step = "loading";
 
@@ -112,8 +114,62 @@ export default {
                 : "info";
           }, 10000);
         } else {
-          // TODO: make a call to the API with axios and transform response / handle error
-          console.log(formValue);
+          this.loadingText = "Trwa przetwarzanie";
+
+          axios
+            .post(`http://localhost:5000/${languageValue}`, {
+              userid: studentNo,
+              exerciseNo,
+              language: languageValue,
+              code,
+            })
+            .then((response) => {
+              const { data: responseData } = response;
+              const { data, error } = responseData;
+              if (error === null) {
+                let isFailure = false;
+
+                this.results = data.map((r, i) => {
+                  const result = {
+                    name: `Test numer ${i}`,
+                    result: isFailure
+                      ? "unknown"
+                      : r.includes("passed")
+                      ? "pass"
+                      : "fail",
+                    comment: isFailure
+                      ? "nie został uruchomiony"
+                      : r.includes("shorter than")
+                      ? "wyjście za długie"
+                      : r.includes("longer than")
+                      ? "wyjście za krótkie"
+                      : "",
+                  };
+                  if (result.result === "fail") {
+                    isFailure = true;
+                  }
+                  return result;
+                });
+                this.errorText = "";
+                this.backgroundColor = this.results.every(
+                  (r) => r.result === "pass"
+                )
+                  ? "success"
+                  : "info";
+              } else {
+                this.results = null;
+                this.errorText = "Błąd kompilacji";
+                this.backgroundColor = "danger";
+              }
+            })
+            .catch(() => {
+              this.results = null;
+              this.errorText = "";
+              this.backgroundColor = "danger";
+            })
+            .then(() => {
+              this.step = "results";
+            });
         }
       }
     },
