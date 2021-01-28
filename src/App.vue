@@ -117,7 +117,7 @@ export default {
           this.loadingText = "Trwa przetwarzanie";
 
           axios
-            .post(`http://localhost:5000/${languageValue}`, {
+            .post(`/${languageValue}`, {
               userid: studentNo,
               exerciseNo,
               language: languageValue,
