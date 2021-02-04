@@ -10,6 +10,8 @@ Dockerfile
 README.md
 dist
 node_modules
+**/node_modules
+**/dist
 npm-debug.log*
 pnpm-debug.log*
 tests/e2e/screenshots/
