@@ -115,9 +115,9 @@ export default {
           }, 10000);
         } else {
           this.loadingText = "Trwa przetwarzanie";
-          // request will be redirected to proskell-api service by http server in container
+
           axios
-            .post(`/${languageValue}`, {
+            .post(`/api/${languageValue}`, {
               userid: studentNo,
               exerciseNo,
               language: languageValue,
